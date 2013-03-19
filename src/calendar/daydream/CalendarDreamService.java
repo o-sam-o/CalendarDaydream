@@ -11,15 +11,9 @@ import android.service.dreams.DreamService;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import calendar.daydream.data.CalendarCursorAdapter;
+import calendar.daydream.data.CalendarCursorPresenter;
 
 public class CalendarDreamService extends DreamService {
-
-	private static final String[] INSTANCE_PROJECTION = new String[] {
-			Instances._ID,
-			Instances.EVENT_ID, // 0
-			Instances.BEGIN, // 1
-			Instances.TITLE // 2
-	};
 
 	@Override
 	public void onAttachedToWindow() {
@@ -58,7 +52,7 @@ public class CalendarDreamService extends DreamService {
 		ContentUris.appendId(builder, endMillis);
 
 		// Submit the query
-		cur = cr.query(builder.build(), INSTANCE_PROJECTION, null, null, null);
+		cur = cr.query(builder.build(), CalendarCursorPresenter.CURSOR_PROJECTION, null, null, null);
 		return cur;
 	}
 

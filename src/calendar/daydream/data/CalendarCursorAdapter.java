@@ -2,12 +2,13 @@ package calendar.daydream.data;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.provider.CalendarContract.Instances;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AnalogClock;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import calendar.daydream.R;
 
 public class CalendarCursorAdapter extends CursorAdapter {
 
@@ -17,31 +18,31 @@ public class CalendarCursorAdapter extends CursorAdapter {
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
-		int nameCol = cursor.getColumnIndex(Instances.TITLE);
+		CalendarCursorPresenter item = new CalendarCursorPresenter(cursor);
+		
+		TextView titleView = (TextView) view.findViewById(R.id.cal_item_title);
+		if (titleView != null) {
+			titleView.setText(item.getTitle());
+		}
+		
+		TextView subtitleView = (TextView) view.findViewById(R.id.cal_item_subtitle);
+		if (subtitleView != null) {
+			subtitleView.setText(item.getDate());
+		}
 
-		String name = cursor.getString(nameCol);
-
-		TextView name_text = (TextView) view.findViewById(android.R.id.text1);
-		if (name_text != null) {
-			name_text.setText("Update: " + name);
+		TextView timeSubview = (TextView) view.findViewById(R.id.cal_item_time);
+		if (timeSubview != null) {
+			timeSubview.setText(item.getTime());
 		}
 	}
 
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		final LayoutInflater inflater = LayoutInflater.from(context);
-		View v = inflater.inflate(android.R.layout.simple_list_item_1, parent,
-				false);
+		View v = inflater.inflate(R.layout.calender_item, parent, false);
 
-		int nameCol = cursor.getColumnIndex(Instances.TITLE);
-		String name = cursor.getString(nameCol);
-
-
-		TextView name_text = (TextView) v.findViewById(android.R.id.text1);
-		if (name_text != null) {
-			name_text.setText("New: " + name);
-		}
-
+		bindView(v, context, cursor);
+		
 		return v;
 	}
 
