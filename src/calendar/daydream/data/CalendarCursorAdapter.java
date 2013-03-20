@@ -1,11 +1,12 @@
 package calendar.daydream.data;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AnalogClock;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 import calendar.daydream.R;
@@ -18,11 +19,12 @@ public class CalendarCursorAdapter extends CursorAdapter {
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
-		CalendarCursorPresenter item = new CalendarCursorPresenter(cursor);
+		CalendarCursorPresenter item = new CalendarCursorPresenter(cursor, context);
 		
 		TextView titleView = (TextView) view.findViewById(R.id.cal_item_title);
 		if (titleView != null) {
 			titleView.setText(item.getTitle());
+			titleView.setTextColor(item.getColor());
 		}
 		
 		TextView subtitleView = (TextView) view.findViewById(R.id.cal_item_subtitle);
@@ -30,9 +32,19 @@ public class CalendarCursorAdapter extends CursorAdapter {
 			subtitleView.setText(item.getDate());
 		}
 
-		TextView timeSubview = (TextView) view.findViewById(R.id.cal_item_time);
-		if (timeSubview != null) {
-			timeSubview.setText(item.getTime());
+		TextView timeView = (TextView) view.findViewById(R.id.cal_item_time);
+		if (timeView != null) {
+			timeView.setText(item.getTime());
+//			if(item.isSoon()) {
+//				timeView.setTextColor(Color.RED);
+//			} else if (item.isNotToday()) {
+//				timeView.setTextColor(Color.GRAY);
+//			}
+		}
+		
+		TextView locationView = (TextView) view.findViewById(R.id.cal_item_summary);
+		if (locationView != null) {
+			locationView.setText(item.getLocation());
 		}
 	}
 

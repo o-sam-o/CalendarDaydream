@@ -6,34 +6,52 @@
         android:id="@+id/cal_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginBottom="16.0dip"
+        android:layout_marginRight="10.0dip"
+        android:ellipsize="none"
+        android:gravity="bottom"
+        android:shadowColor="#c0000000"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="3.0"
+        android:singleLine="true"
+        android:text="Time"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="46.0sp" />
 
     <LinearLayout
-        android:layout_width="203dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/cal_item_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:maxLines="1"
+            android:lines="1"
+            android:ellipsize="end" />
 
         <TextView
             android:id="@+id/cal_item_subtitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="Date"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:maxLines="1"
+            android:lines="1"
+            android:ellipsize="end" />
 
         <TextView
             android:id="@+id/cal_item_summary"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-
+            android:text="Location"
+            android:maxLines="1"
+            android:lines="1"
+            android:ellipsize="end" />
     </LinearLayout>
 
 </LinearLayout>
