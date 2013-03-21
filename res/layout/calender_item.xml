@@ -4,7 +4,7 @@
 
     <TextView
         android:id="@+id/cal_item_time"
-        android:layout_width="wrap_content"
+        android:layout_width="120.0dip"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16.0dip"
         android:layout_marginRight="10.0dip"

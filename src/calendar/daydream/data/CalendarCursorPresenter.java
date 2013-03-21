@@ -3,11 +3,14 @@ package calendar.daydream.data;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract.Instances;
+import android.util.Log;
+import calendar.daydream.util.CalendarDreamContants;
 
 public class CalendarCursorPresenter {
 
@@ -45,12 +48,15 @@ public class CalendarCursorPresenter {
 	}
 	
 	public String getDate() {
-		DateFormat formatter = android.text.format.DateFormat.getDateFormat(context);
+		DateFormat formatter = android.text.format.DateFormat.getLongDateFormat(context);
 
 		return formatter.format(getCalendar(Instances.BEGIN).getTime());
 	}
 
 	public String getTime() {
+		if(isNow()) {
+			return "Now";
+		}
 		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 		return formatter.format(getCalendar(Instances.BEGIN).getTime());
 	}
@@ -78,23 +84,32 @@ public class CalendarCursorPresenter {
 		return calendar;
 	}
 
-//	public boolean isNotToday() {
-//		Calendar tomorrow = Calendar.getInstance();
-//		tomorrow.set(Calendar.HOUR, 0);
-//		tomorrow.set(Calendar.MINUTE, 0);
-//		tomorrow.set(Calendar.SECOND, 0);
-//		tomorrow.add(Calendar.DATE, 1);
-//
-//		return getCalendar(Instances.BEGIN).before(tomorrow);
-//	}
-//
-//	public boolean isSoon() {
+	public boolean isNotToday() {
+		Calendar tomorrow = Calendar.getInstance();
+		tomorrow.set(Calendar.HOUR_OF_DAY, 0);
+		tomorrow.set(Calendar.MINUTE, 0);
+		tomorrow.set(Calendar.SECOND, 0);
+		tomorrow.set(Calendar.MILLISECOND, 0);
+		tomorrow.add(Calendar.DATE, 1);
+
+		Calendar beginTime = getCalendar(Instances.BEGIN);
+		
+		return beginTime.after(tomorrow);
+	}
+
+	public boolean isNow() {
+		Calendar beginTime = getCalendar(Instances.BEGIN);
+		
+		return beginTime.before(Calendar.getInstance());		
+	}
+	
+	public boolean isSoon() {
 //		if(getBoolean(Instances.HAS_ALARM)) {
 //			ContentResolver cr = context.getContentResolver();
-//			cr.
+//			//cr.
 //			//TODO look in remninder table
 //			return true;
 //		}
-//		return false;
-//	}
+		return false;
+	}
 }

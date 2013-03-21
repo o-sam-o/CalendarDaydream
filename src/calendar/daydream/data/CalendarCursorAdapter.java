@@ -30,16 +30,23 @@ public class CalendarCursorAdapter extends CursorAdapter {
 		TextView subtitleView = (TextView) view.findViewById(R.id.cal_item_subtitle);
 		if (subtitleView != null) {
 			subtitleView.setText(item.getDate());
+			if (item.isNotToday()) {
+				subtitleView.setTextColor(Color.GRAY);
+			} else {
+				subtitleView.setTextColor(Color.WHITE);
+			}
 		}
 
 		TextView timeView = (TextView) view.findViewById(R.id.cal_item_time);
 		if (timeView != null) {
 			timeView.setText(item.getTime());
-//			if(item.isSoon()) {
-//				timeView.setTextColor(Color.RED);
-//			} else if (item.isNotToday()) {
-//				timeView.setTextColor(Color.GRAY);
-//			}
+			if(item.isSoon()) {
+				timeView.setTextColor(Color.RED);
+			} else if (item.isNotToday()) {
+				timeView.setTextColor(Color.GRAY);
+			} else {
+				timeView.setTextColor(Color.WHITE);
+			}
 		}
 		
 		TextView locationView = (TextView) view.findViewById(R.id.cal_item_summary);
