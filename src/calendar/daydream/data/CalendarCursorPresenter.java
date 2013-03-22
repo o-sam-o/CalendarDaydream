@@ -3,14 +3,10 @@ package calendar.daydream.data;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.CalendarContract.Instances;
-import android.util.Log;
-import calendar.daydream.util.CalendarDreamContants;
 
 public class CalendarCursorPresenter {
 
