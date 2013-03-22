@@ -100,6 +100,7 @@ public class CalendarCursorPresenter {
 		return beginTime.before(Calendar.getInstance());		
 	}
 	
+	//TODO fix plurals
 	public String getDuration() {
 		long durationMs = getCalendar(Instances.END).getTimeInMillis() - getCalendar(Instances.BEGIN).getTimeInMillis();
 		

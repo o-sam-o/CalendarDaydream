@@ -27,7 +27,6 @@ Icon : [Visual Pharm](http://www.visualpharm.com/)
 ## TODO
 
  * Alerts - Make time red
- * Event duration
  * Settings screen
  * Support different time format
  * Click to see more info - e.g. meeting attendees
