@@ -50,16 +50,18 @@ public class CalendarDreamService extends DreamService {
 
 		Cursor cur = null;
 		ContentResolver cr = getContentResolver();
-
-		//TODO exclude all day events
 		
 		// Construct the query with the desired date range.
 		Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
 		ContentUris.appendId(builder, startMillis);
 		ContentUris.appendId(builder, endMillis);
-
-		// Submit the query
-		cur = cr.query(builder.build(), CalendarCursorPresenter.CURSOR_PROJECTION, null, null, Instances.BEGIN);
+		
+		// Note: All day events are not displayed
+		cur = cr.query(builder.build(),
+				CalendarCursorPresenter.CURSOR_PROJECTION, 
+				Instances.ALL_DAY + " = ? and " + Instances.END + " < ?", 
+				new String[] { "0", (endMillis + 50000) + "" }, 
+				Instances.BEGIN);
 		return cur;
 	}
 

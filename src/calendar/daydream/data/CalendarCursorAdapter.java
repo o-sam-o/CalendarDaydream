@@ -53,6 +53,11 @@ public class CalendarCursorAdapter extends CursorAdapter {
 		if (locationView != null) {
 			locationView.setText(item.getLocation());
 		}
+		
+		TextView durationView = (TextView) view.findViewById(R.id.cal_item_duration);
+		if (durationView != null) {
+			durationView.setText(item.getDuration());
+		}
 	}
 
 	@Override

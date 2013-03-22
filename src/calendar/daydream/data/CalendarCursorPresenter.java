@@ -16,7 +16,8 @@ public class CalendarCursorPresenter {
 			Instances.TITLE,
 			Instances.HAS_ALARM,
 			Instances.EVENT_LOCATION,
-			Instances.DISPLAY_COLOR
+			Instances.DISPLAY_COLOR,
+			Instances.END
 	};
 
 	private Cursor cursor;
@@ -97,6 +98,23 @@ public class CalendarCursorPresenter {
 		Calendar beginTime = getCalendar(Instances.BEGIN);
 		
 		return beginTime.before(Calendar.getInstance());		
+	}
+	
+	public String getDuration() {
+		long durationMs = getCalendar(Instances.END).getTimeInMillis() - getCalendar(Instances.BEGIN).getTimeInMillis();
+		
+		long durationMin = (durationMs / (60 * 1000));
+		
+		if(durationMin < 80) {
+			return durationMin + " minutes";
+		}
+		
+		long durationHours = (durationMin / 60);
+		if(durationHours < 24) {
+			return durationHours + " hours";
+		}
+		
+		return durationHours / 24 + " days";
 	}
 	
 	public boolean isSoon() {

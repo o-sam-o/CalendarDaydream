@@ -2,22 +2,37 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/cal_item_time"
-        android:layout_width="120.0dip"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16.0dip"
-        android:layout_marginRight="10.0dip"
-        android:ellipsize="none"
-        android:gravity="bottom"
-        android:shadowColor="#c0000000"
-        android:shadowDx="0.0"
-        android:shadowDy="0.0"
-        android:shadowRadius="3.0"
-        android:singleLine="true"
-        android:text="Time"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="46.0sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/cal_item_time"
+            android:layout_width="120.0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10.0dip"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:shadowColor="#c0000000"
+            android:shadowDx="0.0"
+            android:shadowDy="0.0"
+            android:shadowRadius="3.0"
+            android:singleLine="true"
+            android:text="Time"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="40.0sp" />
+
+        <TextView
+            android:id="@+id/cal_item_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:layout_marginBottom="5.0dip"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
