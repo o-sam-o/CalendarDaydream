@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:onClick="detailedViewClicked" 
+	android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cal_detailed_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.00"
+        android:padding="15dp"
+        android:text="Sale Title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+    	<AnalogClock
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content" />
+    	
+    	<LinearLayout 
+    	    android:layout_width="wrap_content"
+    		android:layout_height="match_parent"
+    	    android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cal_detailed_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/cal_detailed_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duration" />
+            
+            <TextView
+                android:id="@+id/cal_detailed_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location" />
+        </LinearLayout>
+    	
+	</LinearLayout>
+</LinearLayout>

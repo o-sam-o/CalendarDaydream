@@ -33,3 +33,4 @@ Icon : [Visual Pharm](http://www.visualpharm.com/)
  * Put a header between days
  * Include a clock?
  * Allow selection of which calendar to show
+ * Prevent screen burn

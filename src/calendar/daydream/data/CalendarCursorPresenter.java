@@ -11,7 +11,8 @@ import android.provider.CalendarContract.Instances;
 public class CalendarCursorPresenter {
 
 	public static final String[] CURSOR_PROJECTION = new String[] {
-			Instances._ID, Instances.EVENT_ID,
+			Instances._ID, 
+			Instances.EVENT_ID,
 			Instances.BEGIN,
 			Instances.TITLE,
 			Instances.HAS_ALARM,
@@ -50,6 +51,14 @@ public class CalendarCursorPresenter {
 		return formatter.format(getCalendar(Instances.BEGIN).getTime());
 	}
 
+	public String getDateTime() {
+		if(isNow()) {
+			return "Now";
+		}
+		
+		return android.text.format.DateFormat.getTimeFormat(context).format(getCalendar(Instances.BEGIN).getTime()) + " " + getDate();
+	}
+	
 	public String getTime() {
 		if(isNow()) {
 			return "Now";

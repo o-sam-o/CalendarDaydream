@@ -13,13 +13,19 @@ import android.os.Looper;
 import android.provider.CalendarContract.Instances;
 import android.service.dreams.DreamService;
 import android.util.Log;
+import android.view.TextureView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import calendar.daydream.data.CalendarCursorAdapter;
 import calendar.daydream.data.CalendarCursorPresenter;
 import calendar.daydream.util.CalendarDreamContants;
 
-public class CalendarDreamService extends DreamService {
+public class CalendarDreamService extends DreamService implements OnItemClickListener {
 
 	private Timer refreshTimer;
 	private Cursor cursor;
@@ -30,11 +36,17 @@ public class CalendarDreamService extends DreamService {
 
 		// Allow user touch
 		setInteractive(true);
-
+		
 		// Hide system UI
 		setFullscreen(false);
 
+		displayCalendarListView();
+	}
+
+	private void displayCalendarListView() {
 		setContentView(R.layout.calendar_dream);
+		ListView listView = (ListView) findViewById(R.id.cal_list_view);
+		listView.setOnItemClickListener(this);
 		
 		refreshView();
 	}
@@ -93,10 +105,33 @@ public class CalendarDreamService extends DreamService {
 			cursor.close();
 		}
 		cursor = getCalendarCursor();
-		ListAdapter adapter = new CalendarCursorAdapter(this, getCalendarCursor(), true);
+		ListAdapter adapter = new CalendarCursorAdapter(this, cursor, true);
 		
 		ListView listView = (ListView) findViewById(R.id.cal_list_view);
-		listView.setAdapter(adapter);	
+		if(listView != null) {
+			listView.setAdapter(adapter);	
+		}
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		CalendarCursorPresenter presenter = new CalendarCursorPresenter((Cursor)((ListView) parent).getItemAtPosition(position), this);
+		Log.i(CalendarDreamContants.DEBUG_TAG, "Item clicked " + presenter.getTitle());
+
+		this.setContentView(R.layout.calendar_item_detailed);
+		TextView titleView = (TextView) findViewById(R.id.cal_detailed_title);
+		titleView.setText(presenter.getTitle());
+		titleView.setTextColor(presenter.getColor());
+		((TextView) findViewById(R.id.cal_detailed_subtitle)).setText(presenter.getDateTime());
+		((TextView) findViewById(R.id.cal_detailed_summary)).setText(presenter.getLocation());
+		((TextView) findViewById(R.id.cal_detailed_duration)).setText(presenter.getDuration());
+		
+		// TODO Add more stuff here
+		
+	}
+
+	public void detailedViewClicked(View view) {
+		displayCalendarListView();
 	}
 	
 	@Override
