@@ -47,6 +47,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location" />
+
+            <!-- TODO make list view -->
+            <TextView
+                android:id="@+id/cal_detailed_attendees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location" />
+
         </LinearLayout>
     	
 	</LinearLayout>

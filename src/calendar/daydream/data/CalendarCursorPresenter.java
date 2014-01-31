@@ -2,25 +2,36 @@ package calendar.daydream.data;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Instances;
 
 public class CalendarCursorPresenter {
 
 	public static final String[] CURSOR_PROJECTION = new String[] {
-			Instances._ID, 
-			Instances.EVENT_ID,
-			Instances.BEGIN,
-			Instances.TITLE,
-			Instances.HAS_ALARM,
-			Instances.EVENT_LOCATION,
-			Instances.DISPLAY_COLOR,
-			Instances.END
+		CalendarContract.Instances._ID, 
+		CalendarContract.Instances.EVENT_ID,
+		CalendarContract.Instances.BEGIN,
+		CalendarContract.Instances.TITLE,
+		CalendarContract.Instances.HAS_ALARM,
+		CalendarContract.Instances.EVENT_LOCATION,
+		CalendarContract.Instances.DISPLAY_COLOR,
+		CalendarContract.Instances.END
 	};
-
+	
+	public static final String[] ATTENDEE_CURSOR_PROJECTION = new String[] {
+		Attendees.ATTENDEE_NAME,
+		Attendees.ATTENDEE_EMAIL,
+		Attendees.ATTENDEE_RELATIONSHIP,
+		Attendees.ATTENDEE_STATUS
+	};
+	
 	private Cursor cursor;
 	private Context context;
 	
@@ -68,11 +79,19 @@ public class CalendarCursorPresenter {
 	}
 
 	private String getString(String key) {
+		return getString(key, cursor);
+	}
+
+	private String getString(String key, Cursor cursor) {
 		int column = cursor.getColumnIndex(key);
 		return cursor.getString(column);
 	}
-
+	
 	private int getInt(String key) {
+		return getInt(key, cursor);
+	}
+	
+	private int getInt(String key, Cursor cursor) {
 		int column = cursor.getColumnIndex(key);
 		return cursor.getInt(column);
 	}
@@ -127,13 +146,33 @@ public class CalendarCursorPresenter {
 		return durationHours / 24 + " days";
 	}
 	
+	public List<CalendarAttendee> getAttendees() {
+		List<CalendarAttendee> attendees = new ArrayList<CalendarAttendee>();
+		Cursor cursor = CalendarContract.Attendees.query(context.getContentResolver(), getEventId(), ATTENDEE_CURSOR_PROJECTION);
+		while(cursor.moveToNext()) {
+			attendees.add(new CalendarAttendee(
+					getString(Attendees.ATTENDEE_NAME, cursor),
+					getString(Attendees.ATTENDEE_EMAIL, cursor),
+					getInt(Attendees.ATTENDEE_RELATIONSHIP, cursor),
+					getInt(Attendees.ATTENDEE_STATUS, cursor)
+				));
+		}
+		cursor.close();
+		return attendees;
+	}
+	
 	public boolean isSoon() {
-//		if(getBoolean(Instances.HAS_ALARM)) {
-//			ContentResolver cr = context.getContentResolver();
-//			//cr.
-//			//TODO look in remninder table
-//			return true;
-//		}
+		if(!isNow() && getBoolean(Instances.HAS_ALARM)) {
+			Cursor cursor = CalendarContract.Reminders.query(context.getContentResolver(), getEventId(), new String[] { CalendarContract.Reminders.MINUTES });
+			if(cursor.moveToFirst()) {
+				int reminderMin = getInt(CalendarContract.Reminders.MINUTES, cursor);
+				Calendar remindTime = Calendar.getInstance();
+				remindTime.add(Calendar.MINUTE, -reminderMin);
+				
+				return remindTime.after(Calendar.getInstance());
+			}
+			cursor.close();
+		}
 		return false;
 	}
 }

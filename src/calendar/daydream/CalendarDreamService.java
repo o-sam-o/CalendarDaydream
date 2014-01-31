@@ -20,7 +20,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import calendar.daydream.data.CalendarAttendee;
 import calendar.daydream.data.CalendarCursorAdapter;
 import calendar.daydream.data.CalendarCursorPresenter;
 import calendar.daydream.util.CalendarDreamContants;
@@ -125,6 +127,14 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		((TextView) findViewById(R.id.cal_detailed_subtitle)).setText(presenter.getDateTime());
 		((TextView) findViewById(R.id.cal_detailed_summary)).setText(presenter.getLocation());
 		((TextView) findViewById(R.id.cal_detailed_duration)).setText(presenter.getDuration());
+		
+		//TODO change to list
+		StringBuilder attendees = new StringBuilder();
+		for(CalendarAttendee attendee : presenter.getAttendees()) {
+			attendees.append(attendee.getName() + " ");
+		}
+		TextView attendeesTable = (TextView) findViewById(R.id.cal_detailed_attendees);
+		attendeesTable.setText(attendees);
 		
 		// TODO Add more stuff here
 		
