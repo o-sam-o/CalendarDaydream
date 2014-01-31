@@ -1,6 +1,6 @@
 package calendar.daydream.data;
 
-public class CalendarAttendee {
+public class CalendarAttendee implements Comparable<CalendarAttendee> {
 
 	private String name;
 	private String email;
@@ -46,6 +46,12 @@ public class CalendarAttendee {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	@Override
+	public int compareTo(CalendarAttendee other) {
+		//TODO might need to add email fallback
+		return this.getName().compareToIgnoreCase(other.getName());
 	}
 	
 }

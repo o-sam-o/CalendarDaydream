@@ -15,8 +15,11 @@ import android.service.dreams.DreamService;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -25,6 +28,7 @@ import android.widget.TextView;
 import calendar.daydream.data.CalendarAttendee;
 import calendar.daydream.data.CalendarCursorAdapter;
 import calendar.daydream.data.CalendarCursorPresenter;
+import calendar.daydream.ui.AttendeeAdapter;
 import calendar.daydream.util.CalendarDreamContants;
 
 public class CalendarDreamService extends DreamService implements OnItemClickListener {
@@ -128,13 +132,9 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		((TextView) findViewById(R.id.cal_detailed_summary)).setText(presenter.getLocation());
 		((TextView) findViewById(R.id.cal_detailed_duration)).setText(presenter.getDuration());
 		
-		//TODO change to list
-		StringBuilder attendees = new StringBuilder();
-		for(CalendarAttendee attendee : presenter.getAttendees()) {
-			attendees.append(attendee.getName() + " ");
-		}
-		TextView attendeesTable = (TextView) findViewById(R.id.cal_detailed_attendees);
-		attendeesTable.setText(attendees);
+		AttendeeAdapter attendeesAdapter = new AttendeeAdapter(presenter.getAttendees(), this);
+		ListView attendeesView = (ListView) findViewById(R.id.cal_detailed_attendees);
+		attendeesView.setAdapter(attendeesAdapter);
 		
 		// TODO Add more stuff here
 		

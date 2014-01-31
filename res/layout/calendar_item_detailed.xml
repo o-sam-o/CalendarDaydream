@@ -17,7 +17,7 @@
 
     <LinearLayout
     	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
+    	android:layout_height="fill_parent"
         android:orientation="horizontal">
         
     	<AnalogClock
@@ -48,12 +48,11 @@
                 android:layout_height="wrap_content"
                 android:text="Location" />
 
-            <!-- TODO make list view -->
-            <TextView
+            <ListView
                 android:id="@+id/cal_detailed_attendees"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Location" />
+                android:layout_height="fill_parent" >
+            </ListView>
 
         </LinearLayout>
     	
