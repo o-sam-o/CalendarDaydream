@@ -1,11 +1,15 @@
 package calendar.daydream.data;
 
+import android.provider.CalendarContract.Attendees;
+
 public class CalendarAttendee implements Comparable<CalendarAttendee> {
 
 	private String name;
 	private String email;
 	private int relationship;
 	private int status;
+	
+	public enum Type { ORGANIZER, ATTENDING, NOT_ATTENDING, UNKNOWN };
 	
 	public CalendarAttendee(String name, String email, int relationship,
 			int status) {
@@ -48,6 +52,21 @@ public class CalendarAttendee implements Comparable<CalendarAttendee> {
 		this.status = status;
 	}
 
+	public Type getType() {
+		if(relationship == Attendees.RELATIONSHIP_ORGANIZER) {
+			return Type.ORGANIZER;
+		}
+		switch(status) {
+		case Attendees.ATTENDEE_STATUS_ACCEPTED:
+			return Type.ATTENDING;
+		case Attendees.ATTENDEE_STATUS_DECLINED:
+			return Type.NOT_ATTENDING;
+		//TODO add tentative
+		default:
+			return Type.UNKNOWN;
+		}
+	}
+	
 	@Override
 	public int compareTo(CalendarAttendee other) {
 		//TODO might need to add email fallback

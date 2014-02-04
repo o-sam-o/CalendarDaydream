@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import calendar.daydream.R;
 import calendar.daydream.data.CalendarAttendee;
@@ -47,7 +48,21 @@ public class AttendeeAdapter extends BaseAdapter {
 		CalendarAttendee attendee = attendees.get(index);
 		((TextView) convertView.findViewById(R.id.attendee_name)).setText(attendee.getName());
 
-		//TODO set icon
+		ImageView icon = (ImageView) convertView.findViewById(R.id.attendee_icon);
+		
+		switch(attendee.getType()) {
+		case ATTENDING:
+			icon.setImageResource(R.drawable.check_alt);
+			break;
+		case NOT_ATTENDING:
+			icon.setImageResource(R.drawable.x_alt);
+			break;
+		case ORGANIZER:
+			icon.setImageResource(R.drawable.steering_wheel);
+			break;
+		default:
+			icon.setImageResource(R.drawable.question_mark);
+		}
 		
 		return convertView;
 	}

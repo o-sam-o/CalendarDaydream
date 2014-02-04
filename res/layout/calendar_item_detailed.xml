@@ -51,7 +51,8 @@
             <ListView
                 android:id="@+id/cal_detailed_attendees"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent"
+                android:clickable="false">
             </ListView>
 
         </LinearLayout>
