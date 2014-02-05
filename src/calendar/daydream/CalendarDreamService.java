@@ -128,7 +128,8 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		TextView titleView = (TextView) findViewById(R.id.cal_detailed_title);
 		titleView.setText(presenter.getTitle());
 		titleView.setTextColor(presenter.getColor());
-		((TextView) findViewById(R.id.cal_detailed_subtitle)).setText(presenter.getDateTime());
+		((TextView) findViewById(R.id.cal_detailed_subtitle)).setText(presenter.getDate());
+		((TextView) findViewById(R.id.cal_detailed_time)).setText(presenter.getTime());
 		((TextView) findViewById(R.id.cal_detailed_summary)).setText(presenter.getLocation());
 		((TextView) findViewById(R.id.cal_detailed_duration)).setText(presenter.getDuration());
 		
@@ -136,8 +137,14 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		ListView attendeesView = (ListView) findViewById(R.id.cal_detailed_attendees);
 		attendeesView.setAdapter(attendeesAdapter);
 		
-		// TODO Add more stuff here
-		
+		//Need to do this or clicking on the attendees list does nothing ...
+		attendeesView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				detailedViewClicked(null);
+			}
+		});
 	}
 
 	public void detailedViewClicked(View view) {
