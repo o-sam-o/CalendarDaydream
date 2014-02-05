@@ -39,8 +39,16 @@ public class CalendarCursorPresenter {
 	public CalendarCursorPresenter(Cursor cursor, Context context) {
 		this.cursor = cursor;
 		this.context = context;
+		//Stash date for cursor position so we can detect when a date changes
+		cursor.getExtras().putString("position-date-" + cursor.getPosition(), 
+				getDate());
 	}
 
+	public boolean isNewDate() {
+		String previous = cursor.getExtras().getString("position-date-" + (cursor.getPosition() - 1));
+		return !getDate().equals(previous);
+	}
+	
 	public int getColor() {
 		return getInt(Instances.DISPLAY_COLOR);
 	}

@@ -1,7 +1,6 @@
 package calendar.daydream.data;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -57,6 +56,14 @@ public class CalendarCursorAdapter extends CursorAdapter {
 		TextView durationView = (TextView) view.findViewById(R.id.cal_item_duration);
 		if (durationView != null) {
 			durationView.setText(item.getDuration());
+		}
+		
+		TextView divTitle = (TextView) view.findViewById(R.id.cal_item_divider_title);
+		if(item.isNewDate()) {
+			divTitle.setVisibility(View.VISIBLE);
+			divTitle.setText(item.getDate());
+		} else {
+			divTitle.setVisibility(View.GONE);
 		}
 	}
 
