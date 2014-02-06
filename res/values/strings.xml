@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">CalendarDaydream</string>
+    <string name="title_activity_calendar_dream_settings">Calendar Daydream Settings</string>
     
     <color name="list_header_background">#C40101</color>
     <color name="list_header_text">#FFFFFF</color>

@@ -30,8 +30,5 @@ In App Icons : [P.J. Onori](http://somerandomdude.com/work/open-iconic/)
  * Alerts - Make time red
  * Settings screen
  * Support different time format
- * Click to see more info - e.g. meeting attendees
- * Put a header between days
- * Include a clock?
  * Allow selection of which calendar to show
  * Prevent screen burn
