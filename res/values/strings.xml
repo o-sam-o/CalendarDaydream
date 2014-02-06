@@ -1,5 +1,8 @@
 <resources>
 
     <string name="app_name">CalendarDaydream</string>
+    
+    <color name="list_header_background">#C40101</color>
+    <color name="list_header_text">#FFFFFF</color>
 
 </resources>

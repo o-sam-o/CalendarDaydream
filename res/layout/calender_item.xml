@@ -4,17 +4,20 @@
     android:orientation="vertical">
 
     <TextView
-            android:id="@+id/cal_item_divider_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10.0dip"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="Title"
-            android:background="@android:color/background_light"
-            android:textColor="@android:color/black"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:visibility="gone" />
+        android:id="@+id/cal_item_divider_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/list_header_background"
+        android:paddingLeft="10.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingBottom="5.0dip"
+        android:singleLine="true"
+        android:text="Title"
+        android:textSize="25sp"
+        android:textColor="@color/list_header_text"
+        android:textStyle="bold|italic"
+        android:fontFamily="sans-serif-condensed"
+        android:visibility="gone" />
     
    <LinearLayout
         android:layout_width="wrap_content"

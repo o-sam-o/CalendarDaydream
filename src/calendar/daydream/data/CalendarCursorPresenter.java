@@ -66,9 +66,31 @@ public class CalendarCursorPresenter {
 	}
 	
 	public String getDate() {
+		Calendar date = getCalendar(Instances.BEGIN);
+		
+		Calendar midnight = Calendar.getInstance();
+		midnight.set(Calendar.HOUR_OF_DAY, 23);
+		midnight.set(Calendar.MINUTE, 59);
+		midnight.set(Calendar.SECOND , 59);
+		
+		if(date.before(midnight)) {
+			return "Today";
+		}
+		
+		midnight.add(Calendar.DATE, 1);
+		if(date.before(midnight)) {
+			return "Tomorrow";
+		}
+		
 		DateFormat formatter = android.text.format.DateFormat.getLongDateFormat(context);
-
-		return formatter.format(getCalendar(Instances.BEGIN).getTime());
+		String dayOfWeek = (new SimpleDateFormat("EEEE")).format(date.getTime());
+		String dateString = formatter.format(date.getTime());
+		//Doco claims getLongDateFormat can contain the day of the week, but it doesnt for me so adding date of week if missing
+		if(dateString.contains(dayOfWeek)) {
+			return dateString;
+		} else {
+			return dayOfWeek + " - " + dateString;
+		}
 	}
 
 	public String getDateTime() {
@@ -83,7 +105,7 @@ public class CalendarCursorPresenter {
 		if(isNow()) {
 			return "Now";
 		}
-		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+		DateFormat formatter = new SimpleDateFormat("HH:mm");
 		return formatter.format(getCalendar(Instances.BEGIN).getTime());
 	}
 
