@@ -32,3 +32,4 @@ In App Icons : [P.J. Onori](http://somerandomdude.com/work/open-iconic/)
  * Support different time format
  * Allow selection of which calendar to show
  * Prevent screen burn
+ * Add way to see event description

@@ -1,0 +1,23 @@
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <PreferenceCategory 
+        android:title="General"
+        android:key="pref_key_general_settings">
+        <CheckBoxPreference
+                android:key="screensaver_preference"
+                android:title="Reduce Screen Burn"
+                android:defaultValue="false" />
+     </PreferenceCategory>
+     
+     <PreferenceCategory 
+        android:title="Calendars"
+        android:key="pref_key_cal_settings">
+        <ListPreference
+                android:key="calendars_preference"
+                android:title="Calendars to display" 
+                android:defaultValue="___calDayDream_all"/>
+     </PreferenceCategory>
+
+
+</PreferenceScreen>
