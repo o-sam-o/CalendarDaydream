@@ -22,8 +22,8 @@ MIT
 
 ## Credits
 
-App Icon : [Visual Pharm](http://www.visualpharm.com/)
-In App Icons : [P.J. Onori](http://somerandomdude.com/work/open-iconic/)
+* App Icon : [Visual Pharm](http://www.visualpharm.com/)
+* In App Icons : [P.J. Onori](http://somerandomdude.com/work/open-iconic/)
 
 ## TODO
 
