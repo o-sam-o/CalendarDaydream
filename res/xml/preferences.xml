@@ -4,19 +4,28 @@
      <PreferenceCategory 
         android:title="General"
         android:key="pref_key_general_settings">
+        
         <CheckBoxPreference
                 android:key="screensaver_preference"
                 android:title="Reduce Screen Burn"
                 android:defaultValue="false" />
+        
+        <ListPreference
+            android:key="days_to_show_preference"
+            android:entries="@array/days_to_display_pref_value"
+            android:entryValues="@array/days_to_display_pref_value"
+            android:defaultValue="@string/default_days_to_display"
+            android:title="Number of days to display" />
+        
      </PreferenceCategory>
      
      <PreferenceCategory 
         android:title="Calendars"
         android:key="pref_key_cal_settings">
-        <ListPreference
+        <MultiSelectListPreference
                 android:key="calendars_preference"
-                android:title="Calendars to display" 
-                android:defaultValue="___calDayDream_all"/>
+                android:title="Calendars to display"
+                android:defaultValue="@array/cals_pref_default" />
      </PreferenceCategory>
 
 

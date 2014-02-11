@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="days_to_display_pref_value">
+        <item>1</item>
+        <item>3</item>
+        <item>7</item>
+        <item>30</item>
+    </string-array>
+     
+    <string-array name="cals_pref_default">
+    	<item>___calDayDream_all</item>
+    </string-array>
+    
+</resources>
