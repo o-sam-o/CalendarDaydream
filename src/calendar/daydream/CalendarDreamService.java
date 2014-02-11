@@ -6,26 +6,21 @@ import java.util.TimerTask;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.service.dreams.DreamService;
 import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import calendar.daydream.data.CalendarAttendee;
 import calendar.daydream.data.CalendarCursorAdapter;
 import calendar.daydream.data.CalendarCursorPresenter;
 import calendar.daydream.ui.AttendeeAdapter;
@@ -63,7 +58,7 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		Calendar beginTime = Calendar.getInstance();
 		long startMillis = beginTime.getTimeInMillis();
 		Calendar endTime = Calendar.getInstance();
-		endTime.add(Calendar.DATE, CalendarDreamContants.DAYS_TO_DISPLAY);
+		endTime.add(Calendar.DATE, getNumberOfDaysToDisplay());
 		long endMillis = endTime.getTimeInMillis();
 
 		Cursor cur = null;
@@ -81,6 +76,11 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 				new String[] { "0", (endMillis + 50000) + "" }, 
 				Instances.BEGIN);
 		return cur;
+	}
+
+	private int getNumberOfDaysToDisplay() {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		return Integer.parseInt(sharedPref.getString("days_to_show_preference", String.valueOf(CalendarDreamContants.DAYS_TO_DISPLAY)));
 	}
 
 	@Override
