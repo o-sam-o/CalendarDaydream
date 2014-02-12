@@ -30,6 +30,7 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 
 	private Timer refreshTimer;
 	private Cursor cursor;
+	private boolean screenSaving = true;
 	
 	@Override
 	public void onAttachedToWindow() {
@@ -37,9 +38,6 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 
 		// Allow user touch
 		setInteractive(true);
-		
-		// Hide system UI
-		setFullscreen(false);
 
 		displayCalendarListView();
 	}
@@ -49,6 +47,7 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		ListView listView = (ListView) findViewById(R.id.cal_list_view);
 		listView.setOnItemClickListener(this);
 		
+		screenSaving = true;
 		refreshView();
 	}
 
@@ -83,6 +82,11 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		return Integer.parseInt(sharedPref.getString("days_to_show_preference", String.valueOf(CalendarDreamContants.DAYS_TO_DISPLAY)));
 	}
 
+	private boolean isScreenSaveEnabled() {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		return sharedPref.getBoolean("screensaver_preference", false);
+	}
+	
 	@Override
 	public void onDreamingStarted() {
 		super.onDreamingStarted();
@@ -106,6 +110,12 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		}, 10000, 60000); // updates each min
 	}
 
+    public void onListViewClick(View view) {
+    	if(isScreenSaveEnabled() && screenSaving) {
+    		refreshView();
+    	}
+    }
+	
 	private void refreshView() {
 		if(cursor != null) {
 			cursor.close();
@@ -115,7 +125,16 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		
 		ListView listView = (ListView) findViewById(R.id.cal_list_view);
 		if(listView != null) {
-			listView.setAdapter(adapter);	
+			if(!isScreenSaveEnabled() || screenSaving) {
+				listView.setVisibility(View.VISIBLE);
+				listView.setAdapter(adapter);
+				setFullscreen(false);
+				screenSaving = false;
+			} else {
+				listView.setVisibility(View.GONE);
+				setFullscreen(true);
+				screenSaving = true;
+			}
 		}
 	}
 	
