@@ -1,7 +1,6 @@
 package calendar.daydream;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -46,9 +45,6 @@ public class CalendarDreamSettingsActivity extends PreferenceActivity {
     		
     		ArrayList<String> ids = new ArrayList<String>();
     		ArrayList<String> displayNames = new ArrayList<String>();
-    		
-    		ids.add(CalendarDreamContants.ALL_CAL_VALUE);
-    		displayNames.add("All");
     		
     		while(cur.moveToNext()) {
     			String id = cur.getString(0);

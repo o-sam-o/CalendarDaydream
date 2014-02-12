@@ -1,6 +1,9 @@
 package calendar.daydream;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,6 +17,7 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.service.dreams.DreamService;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,15 +72,35 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 		ContentUris.appendId(builder, startMillis);
 		ContentUris.appendId(builder, endMillis);
 		
+		String query = Instances.ALL_DAY + " = ? and " + Instances.END + " < ?";
+		List<String> params = new ArrayList<String>();
+		params.add("0");
+		params.add(String.valueOf(endMillis + 50000));
+		
+		//Only limit by cal id if user has explicitly set a limit via the pref screen
+		Set<String> calIds = getCalendarIds();
+		if(calIds != null && !calIds.isEmpty()) {
+			query += " and " + Instances.CALENDAR_ID + " in (" + generateQuestionMarks(calIds.size()) + ")";
+			params.addAll(calIds);
+		}
+		
 		// Note: All day events are not displayed
 		cur = cr.query(builder.build(),
 				CalendarCursorPresenter.CURSOR_PROJECTION, 
-				Instances.ALL_DAY + " = ? and " + Instances.END + " < ?", 
-				new String[] { "0", (endMillis + 50000) + "" }, 
+				query, 
+				params.toArray(new String[params.size()]), 
 				Instances.BEGIN);
 		return cur;
 	}
 
+	private String generateQuestionMarks(int count) {
+		List<String> marks = new ArrayList<String>();
+		for(int i = 0; i < count; i++) {
+			marks.add("?");
+		}
+		return TextUtils.join(",", marks);
+	}
+	
 	private int getNumberOfDaysToDisplay() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		return Integer.parseInt(sharedPref.getString("days_to_show_preference", String.valueOf(CalendarDreamContants.DAYS_TO_DISPLAY)));
@@ -85,6 +109,11 @@ public class CalendarDreamService extends DreamService implements OnItemClickLis
 	private boolean isScreenSaveEnabled() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		return sharedPref.getBoolean("screensaver_preference", false);
+	}
+	
+	private Set<String> getCalendarIds() {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		return sharedPref.getStringSet("calendars_preference", null);
 	}
 	
 	@Override

@@ -25,7 +25,7 @@
         <MultiSelectListPreference
                 android:key="calendars_preference"
                 android:title="Calendars to display"
-                android:defaultValue="@array/cals_pref_default" />
+                android:summary="Select calendars to be display or select nothing for all calendars"/>
      </PreferenceCategory>
 
 

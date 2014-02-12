@@ -11,6 +11,14 @@ Simple [Android daydream](http://developer.android.com/about/versions/android-4.
  * Time and title greyed out for future events
  * Landscape and portrait support
  * Source calendar indicated by title colour
+ * Detailed view on calendar entries which includes additional
+   information such as attendees
+ * Preference screen to enable:
+   - Screen burn prevention
+   - Change the number of days being displayed
+   - Control which calendars are displayed
+
+ 
 
 ## Screenshots
 
@@ -28,8 +36,6 @@ MIT
 ## TODO
 
  * Alerts - Make time red
- * Settings screen
  * Support different time format
- * Allow selection of which calendar to show
- * Prevent screen burn
  * Add way to see event description
+ * Add message when no calendars
