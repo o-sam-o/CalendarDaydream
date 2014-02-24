@@ -39,4 +39,6 @@ MIT
 ## Screenshots
 
 ![List Portrait](https://raw2.github.com/o-sam-o/CalendarDaydream/master/screenshots/list_portrait.png)
-
+![List Landscape](https://raw2.github.com/o-sam-o/CalendarDaydream/master/screenshots/list_landscape.png)
+![Detail](https://raw2.github.com/o-sam-o/CalendarDaydream/master/screenshots/detail.png)
+![Settings](https://raw2.github.com/o-sam-o/CalendarDaydream/master/screenshots/settings.png)
