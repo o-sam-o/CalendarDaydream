@@ -19,11 +19,6 @@ Simple [Android daydream](http://developer.android.com/about/versions/android-4.
    - Control which calendars are displayed
 
  
-
-## Screenshots
-
-TODO
-
 ## License
 
 MIT
@@ -39,3 +34,9 @@ MIT
  * Support different time format
  * Add way to see event description
  * Add message when no calendars
+
+
+## Screenshots
+
+![List Portrait](https://raw2.github.com/o-sam-o/CalendarDaydream/master/screenshots/list_portrait.png)
+
