@@ -1,6 +1,7 @@
 package calendar.daydream.data;
 
 import android.provider.CalendarContract.Attendees;
+import android.text.TextUtils;
 
 public class CalendarAttendee implements Comparable<CalendarAttendee> {
 
@@ -21,7 +22,11 @@ public class CalendarAttendee implements Comparable<CalendarAttendee> {
 	}
 
 	public String getName() {
-		return name;
+		if(TextUtils.isEmpty(name)) {
+			return email;
+		} else {
+			return name;
+		}
 	}
 
 	public void setName(String name) {
